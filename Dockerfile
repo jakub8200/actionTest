@@ -1,2 +1,2 @@
 FROM ubuntu:latest
-WORKDIR /app
+WORKDIR /app2
