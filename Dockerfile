@@ -1,2 +1,2 @@
-FROM ubuntu:latest
-WORKDIR /app2
+FROM webdevops/php-nginx
+WORKDIR /app
