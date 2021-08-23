@@ -33,16 +33,14 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      - name: Download task definition
-          run: |
-            aws ecs describe-task-definition --task-definition my-task-definition-family --query taskDefinition > task-definition.json
+
       - name: Render Amazon ECS task definition
-        id: task-jakubtest
+        id: render-container
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
             task-definition: task-definition.json
-            container-name: task-jakubtest
-            image: ${{ steps.login-ecr.outputs.registry }}/jakubtester/${{ github.sha }}
+            container-name: container-jakubtest
+            image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy to Amazon ECS service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
