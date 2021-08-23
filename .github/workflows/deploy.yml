@@ -39,7 +39,7 @@ jobs:
           aws ecs describe-task-definition --task-definition taskdefinition-jakub-test2 --query taskDefinition > task-definition.json
 
       - name: Render Amazon ECS task definition
-        id: render-container
+        id: id-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
             task-definition: task-definition.json
@@ -49,6 +49,7 @@ jobs:
       - name: Deploy to Amazon ECS service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.render-container.outputs.task-definition }}
+          task-definition: ${{ steps.id-def.outputs.task-definition }}
           service: service-jakubtest
           cluster: jakubtest
+          wait-for-service-stability: true
