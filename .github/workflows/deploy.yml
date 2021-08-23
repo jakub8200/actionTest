@@ -36,7 +36,7 @@ jobs:
 
       - name: Download task definition
         run: |
-          aws ecs escribe-task-definition --task-definition taskdefinition-jakub-test --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition taskdefinition-jakub-test --query taskDefinition > task-definition.json
 
       - name: Render Amazon ECS task definition
         id: render-container
